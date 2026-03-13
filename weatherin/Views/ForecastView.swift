@@ -1,0 +1,24 @@
+//
+//  ForecastView.swift
+//  weatherin
+//
+//  Created by Muhammad Rizky Maulana Darmawan on 13/03/26.
+//
+
+import SwiftUI
+
+struct ForecastView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Hello, world!")
+        }
+        .padding()
+    }
+}
+
+#Preview {
+    ForecastView()
+}

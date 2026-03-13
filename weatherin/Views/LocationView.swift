@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LocationView.swift
 //  weatherin
 //
 //  Created by Muhammad Rizky Maulana Darmawan on 13/03/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LocationView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LocationView()
 }
