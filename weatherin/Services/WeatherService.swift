@@ -5,10 +5,6 @@
 //  Created by Muhammad Rizky Maulana Darmawan on 13/03/26.
 //
 
-// This is the "Http::get()" equivalent in Swift.
-// URLSession.shared.data(from:) is async — it suspends until the response arrives,
-// exactly like Laravel's Http::get() in a queued job.
-
 import Foundation
 
 class WeatherService {

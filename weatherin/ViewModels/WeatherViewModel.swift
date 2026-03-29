@@ -5,10 +5,6 @@
 //  Created by Muhammad Rizky Maulana Darmawan on 13/03/26.
 //
 
-// ViewModel = the brain between the View and the Service layer.
-// In Laravel terms: this is your Controller.
-// @MainActor ensures all @Published property updates happen on the main thread (UI thread).
-
 import Foundation
 import Combine
 
@@ -16,9 +12,6 @@ import Combine
 class WeatherViewModel: ObservableObject {
 
     // MARK: - Published Properties
-    //
-    // @Published = any View watching this ViewModel will automatically re-render
-    // when these values change. Think of it like Vue.js reactive data.
 
     @Published var weather: WeatherResponse?
     @Published var searchResults: [LocationResult] = []
@@ -26,8 +19,6 @@ class WeatherViewModel: ObservableObject {
     @Published var cityName: String = "Unknown"
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-
-    // Saved locations — persisted in UserDefaults (like Laravel's cache)
     @Published var savedLocations: [LocationResult] = []
 
     // MARK: - Services
@@ -39,14 +30,11 @@ class WeatherViewModel: ObservableObject {
     // MARK: - Init
 
     init() {
-        // Load saved locations from UserDefaults when the app starts.
-        // UserDefaults is key-value storage on device — like Laravel's cache()->get()
         loadSavedLocations()
     }
 
     // MARK: - Saved Locations
 
-    // Check if the currently displayed city is already in the saved list
     var isCurrentLocationSaved: Bool {
         guard let location = selectedLocation else { return false }
         return savedLocations.contains(where: { $0.id == location.id })
@@ -63,8 +51,6 @@ class WeatherViewModel: ObservableObject {
         persistSavedLocations()
     }
 
-    // Read saved locations from UserDefaults.
-    // Data is stored as JSON — JSONDecoder turns it back into [LocationResult].
     private func loadSavedLocations() {
         guard let data = UserDefaults.standard.data(forKey: "savedLocations"),
               let decoded = try? JSONDecoder().decode([LocationResult].self, from: data)
@@ -72,8 +58,6 @@ class WeatherViewModel: ObservableObject {
         savedLocations = decoded
     }
 
-    // Write saved locations to UserDefaults.
-    // JSONEncoder turns [LocationResult] into Data (raw bytes), then we store that.
     private func persistSavedLocations() {
         if let encoded = try? JSONEncoder().encode(savedLocations) {
             UserDefaults.standard.set(encoded, forKey: "savedLocations")
@@ -97,9 +81,6 @@ class WeatherViewModel: ObservableObject {
     }
 
     // MARK: - Retry last known location
-    //
-    // Called by ErrorView's "Try Again" button.
-    // Re-runs the fetch for whatever city was selected before the error.
 
     func retryLastLocation() {
         guard let location = selectedLocation else {

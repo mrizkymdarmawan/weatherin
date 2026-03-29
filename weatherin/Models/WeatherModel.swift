@@ -5,10 +5,6 @@
 //  Created by Muhammad Rizky Maulana Darmawan on 13/03/26.
 //
 
-// Codable = Swift's way of auto-decoding JSON into structs.
-// Think of it like Laravel's json_decode() but type-safe and automatic.
-// The CodingKeys enum handles snake_case → camelCase renaming.
-
 import Foundation
 
 struct WeatherResponse: Codable {
@@ -22,7 +18,7 @@ struct CurrentWeather: Codable {
     var temperature: Double
     var windSpeed: Double
     var humidity: Double
-    var weathercode: Int           // ← added: condition code (0 = clear, 95 = thunderstorm, etc.)
+    var weathercode: Int
 
     enum CodingKeys: String, CodingKey {
         case time
@@ -38,7 +34,7 @@ struct HourlyWeather: Codable {
     var temperature: [Double]
     var windSpeed: [Double]
     var humidity: [Double]
-    var weathercode: [Int]         // ← added: one code per hour for icon display
+    var weathercode: [Int]
 
     enum CodingKeys: String, CodingKey {
         case time
@@ -54,7 +50,7 @@ struct DailyWeather: Codable {
     var maxTemperature: [Double]
     var minTemperature: [Double]
     var weatherCode: [Int]
-    var precipitationProbabilityMax: [Int]   // ← added: rain chance (0–100%) per day
+    var precipitationProbabilityMax: [Int]
 
     enum CodingKeys: String, CodingKey {
         case time

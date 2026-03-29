@@ -1,4 +1,4 @@
-# weatherin 🌤️
+# Weatherin 🌤️
 
 hey, this is my first native iOS app — a weather app built while learning Swift from scratch.
 

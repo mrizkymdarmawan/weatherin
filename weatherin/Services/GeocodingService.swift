@@ -15,7 +15,7 @@ class GeocodingService {
 
         let params = [
             "name=\(query)",
-            "count=10",      // fetch 10 from API, then we deduplicate below
+            "count=10",
             "language=en",
             "format=json"
         ].joined(separator: "&")
@@ -28,11 +28,6 @@ class GeocodingService {
         let decoded = try JSONDecoder().decode(GeocodingResponse.self, from: data)
         let results = decoded.results ?? []
 
-        // The Open-Meteo API can return multiple rows for the same city name because
-        // it includes different admin levels (city, district, regency, etc.).
-        // To the user they all look identical — same name, same country, same timezone.
-        // We deduplicate by displayName ("Bogor, Indonesia") so each unique label
-        // only appears once. This is like PHP's array_unique().
         var seen = Set<String>()
         return results.filter { seen.insert($0.displayName).inserted }
     }
